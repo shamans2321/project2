@@ -166,14 +166,14 @@ void play() {
     gotoxy(10, 5); cout << "                      ";
 
     while (1) {
-
-        if (_kbhit()) {
+        // проверка на нажатие 
+        if (_kbhit()) { 
             char ch = _getch();
-            if (ch == 32) {
+            if (ch == 32) { //пробел
                 if (birdPos > 3)
                     birdPos -= 3;
             }
-            if (ch == 27) {
+            if (ch == 27) {//ескейп
                 break;
             }
         }
@@ -186,33 +186,33 @@ void play() {
             gameover();
             return;
         }
-        Sleep(100);
-        eraseBird();
-        erasePipe(0);
-        erasePipe(1);
+        Sleep(100); // остановка
+        eraseBird(); // удаление птахи
+        erasePipe(0); // удаление препятствий
+        erasePipe(1); // удаление препятствий
         birdPos += 1;
 
         if (birdPos > SCREEN_HEIGHT - 2) {
             gameover();
-            return;
+            return; // Проверка позиции птици на выход за границ
         }
 
         if (pipeFlag[0] == 1)
-            pipePos[0] += 2;
-
+            pipePos[0] += 2; 
+        //Если флаг pipeFlag[0] равен 1, то позиция первой трубы увеличивается на 2 . точно также и для второй
         if (pipeFlag[1] == 1)
             pipePos[1] += 2;
 
         if (pipePos[0] >= 40 && pipePos[0] < 42) {
             pipeFlag[1] = 1;
             pipePos[1] = 4;
-            genPipe(1);
+            genPipe(1); // труба находится в диапазоне от 40 до 42  флаг наличия трубы созд новая труба
         }
-        if (pipePos[0] > 68) {
+        if (pipePos[0] > 68) { //проверка того что труба вышла за пределы экрана
             score++;
-            updateScore();
+            updateScore(); // увеличение счёта
             pipeFlag[1] = 0;
-            pipePos[0] = pipePos[1];
+            pipePos[0] = pipePos[1]; // обновляют позиции трубы и расстояние
             gapPos[0] = gapPos[1];
         }
 
@@ -224,7 +224,7 @@ int main()
 {
     setlocale(LC_ALL, "RU");
     setcursor(0, 0);
-    srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL)); // случайные числа
 
     //    меню
 
